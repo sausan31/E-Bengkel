@@ -1,0 +1,62 @@
+/*start login*/
+.flex-row {
+    gap: 52px;
+    min-width: 810px;
+}
+
+.frame-1 {
+    align-items: flex-start;
+    background-color: #2c73eb;
+    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/649338821fb9e3c21b1bb1b9/releases/6493398eab86312b9d5969d1/img/frame-1.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    gap: 210px;
+    height: 650px;
+    padding: 64px 88px;
+    width: 650px;
+    position: absolute;
+    margin-top: -120px;
+}
+
+.overlap-group1 {
+    height: 403px;
+    position: relative;
+    width: 597px;
+}
+
+.overlap-group {
+    height: 403px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 597px;
+}
+
+.ellipse-8 {
+    background-color: #d9d9d9;
+    border-radius: 298.5px/138.27px;
+    height: 277px;
+    right: 62px;
+    position: absolute;
+    top: 200px;
+    width: 597px;
+}
+
+.sketsa-motor {
+    height: 308px;
+    right: 110px;
+    position: absolute;
+    top: 55px;
+    width: 498px;
+}
+
+.group-2 {
+    align-items: center;
+    flex-direction: column;
+    min-height: 178px;
+    width: 472px;
+    position: relative;
+    left: 700px;
+}
