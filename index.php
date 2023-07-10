@@ -72,13 +72,11 @@ if ($resultbarang->num_rows > 0) {
 
 // Bar chart 1
 // Query untuk mendapatkan pendapatan per bulan berdasarkan jenis barang/jasa
-$queryChart1 = "SELECT MONTHNAME(tgl_trx) AS bulan, b.jenis, SUM(t.total) AS total_pendapatan
-FROM trx t
-INNER JOIN tmp_trx ON t.id_trx = tmp_trx.id_trx
-INNER JOIN barangjasa b ON tmp_trx.id_brg = b.id_brg
-WHERE b.jenis IN ('barang', 'jasa')
-GROUP BY bulan, jenis
-ORDER BY bulan DESC";
+$year = date("Y");
+$queryChart1 = "SELECT MONTHNAME(t.tgl_trx) as bulan, b.jenis, SUM(b.harga * tt.jml) as pendapatan 
+FROM tmp_trx tt INNER JOIN trx t ON tt.id_trx = t.id_trx 
+INNER JOIN barangjasa b ON tt.id_brg = b.id_brg 
+WHERE YEAR(t.tgl_trx) = $year GROUP BY bulan DESC, b.jenis";
 $resultChart1 = $conn->query($queryChart1);
 
 $dataChart1 = array(); // Array untuk menyimpan data pendapatan per bulan berdasarkan jenis
@@ -88,7 +86,7 @@ if ($resultChart1->num_rows > 0) {
 	while ($rowChart1 = $resultChart1->fetch_assoc()) {
 		$bulanChart1 = $rowChart1["bulan"];
 		$jenisChart1 = $rowChart1["jenis"];
-		$pendapatanChart1 = $rowChart1["total_pendapatan"];
+		$pendapatanChart1 = $rowChart1["pendapatan"];
 
 		// Menyimpan data pendapatan per bulan berdasarkan jenis
 		$dataChart1[$jenisChart1][] = $pendapatanChart1;
@@ -122,13 +120,11 @@ if ($resultChart2->num_rows > 0) {
 
 // Line chart
 // Query untuk mendapatkan jumlah transaksi per hari berdasarkan jenis barang/jasa
-$queryChart3 = "SELECT t.tgl_trx, b.jenis, COUNT(*) AS jumlah_transaksi
-FROM trx t
-INNER JOIN tmp_trx tt ON t.id_trx = tt.id_trx
-INNER JOIN barangjasa b ON tt.id_brg = b.id_brg
-WHERE b.jenis IN ('barang', 'jasa') AND t.tgl_trx >= '$weekStart' AND t.tgl_trx <= '$weekEnd'
-GROUP BY t.tgl_trx, b.jenis
-ORDER BY t.tgl_trx";
+$queryChart3 = "SELECT t.tgl_trx, b.jenis, SUM(tt.jml) as jumlah_terjual 
+FROM tmp_trx tt INNER JOIN trx t ON tt.id_trx = t.id_trx 
+INNER JOIN barangjasa b ON tt.id_brg = b.id_brg WHERE t.tgl_trx 
+BETWEEN '$weekStart' AND '$weekEnd' 
+GROUP BY t.tgl_trx, b.jenis;";
 $resultChart3 = $conn->query($queryChart3);
 
 $dataBarangChart3 = array(); // Array untuk menyimpan data jumlah transaksi barang per hari
@@ -139,7 +135,7 @@ if ($resultChart3->num_rows > 0) {
 	while ($rowChart3 = $resultChart3->fetch_assoc()) {
 		$tanggalChart3 = $rowChart3["tgl_trx"];
 		$jenisChart3 = $rowChart3["jenis"];
-		$jumlahTransaksiChart3 = $rowChart3["jumlah_transaksi"];
+		$jumlahTransaksiChart3 = $rowChart3["jumlah_terjual"];
 
 		// Menyimpan data jumlah transaksi barang/jasa per hari
 		if ($jenisChart3 === "barang") {
@@ -272,9 +268,9 @@ include("layout_top.php");
 			</div><!-- /.panel-green -->
 
 			<div class="col-lg-6 col-md-6">
-					<div class="lineChart">
-						<canvas id="lineChart"></canvas>
-					</div>
+				<div class="lineChart">
+					<canvas id="lineChart"></canvas>
+				</div>
 			</div><!-- /.panel-green -->
 		</div><!-- /.row --><br>
 
@@ -424,7 +420,7 @@ include("layout_top.php");
 			plugins: {
 				title: {
 					display: true,
-					text: "Tren Jumlah Transaksi dalam 1 minggu",
+					text: "Jumlah Transaksi dalam 1 minggu",
 					font: {
 						size: 16
 					}

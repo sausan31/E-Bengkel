@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Jul 2023 pada 19.07
+-- Waktu pembuatan: 10 Jul 2023 pada 21.57
 -- Versi server: 10.4.25-MariaDB
 -- Versi PHP: 8.1.10
 
@@ -64,9 +64,9 @@ CREATE TABLE `barangjasa` (
 --
 
 INSERT INTO `barangjasa` (`id_brg`, `nama`, `jenis`, `stok`, `harga`, `keterangan`, `id_adm`) VALUES
-(0, 'Oli Yamalube 800cc', 'barang', '47', '35000', 'Oli Yamalube 800cc', 1),
+(1, 'Oli Yamalube 800cc', 'barang', '35', '35000', 'Oli Yamalube 800cc', 1),
 (4, 'Paket Service Ekonomis', 'jasa', '1', '30000', 'Ekonomis', 1),
-(5, 'Suspensi Matic', 'barang', '36', '175000', 'Suspensi matic', 1),
+(5, 'Suspensi Matic', 'barang', '18', '175000', 'Suspensi matic', 1),
 (8, 'Paket Ganti Oli', 'jasa', '1', '60000', 'Ganti oli rutin', 1);
 
 -- --------------------------------------------------------
@@ -174,11 +174,8 @@ INSERT INTO `tmp_trx` (`id_tmp`, `id_trx`, `id_brg`, `jml`, `id_kasir`, `status`
 (25, '08072023042249', 1, 3, 1, 'Done'),
 (26, '09072023154356', 1, 2, 1, 'Done'),
 (27, '09072023154356', 4, 1, 1, 'Done'),
-(28, '10072023235610', 1, 2, 1, 'Done'),
-(29, '10072023235610', 5, 1, 1, 'Done'),
-(30, '10072023235829', 5, 1, 1, 'Done'),
-(31, '11072023000416', 0, 3, 1, 'Done'),
-(32, '11072023000416', 8, 1, 1, 'Done');
+(28, '11072023003809', 1, 2, 1, 'Done'),
+(29, '11072023003809', 8, 1, 1, 'Done');
 
 -- --------------------------------------------------------
 
@@ -200,10 +197,10 @@ CREATE TABLE `trx` (
 
 INSERT INTO `trx` (`id_trx`, `id_kon`, `tgl_trx`, `total`, `id_kasir`) VALUES
 ('02062019094643', 0, '2023-06-02', '100000', 1),
-('02062019120923', 3, '2023-06-02', '30000', 1),
-('02062019121127', 0, '2023-06-02', '30000', 1),
-('06062019094346', 0, '2023-06-06', '35000', 1),
-('06062019100803', 3, '2023-06-06', '30000', 1),
+('02062019120923', 3, '2019-06-02', '30000', 1),
+('02062019121127', 0, '2019-06-02', '30000', 1),
+('06062019094346', 0, '2019-06-06', '35000', 1),
+('06062019100803', 3, '2019-06-06', '30000', 1),
 ('08072023012536', 0, '2023-07-08', '310000', 1),
 ('08072023023639', 0, '2023-07-08', '30000', 1),
 ('08072023033433', 0, '2023-07-08', '60000', 1),
@@ -212,10 +209,8 @@ INSERT INTO `trx` (`id_trx`, `id_kon`, `tgl_trx`, `total`, `id_kasir`) VALUES
 ('08072023040342', 3, '2023-07-08', '175000', 1),
 ('08072023042249', 3, '2023-07-08', '105000', 1),
 ('09072023154356', 0, '2023-07-09', '100000', 1),
-('10072023235610', 3, '2023-07-10', '245000', 1),
-('10072023235829', 0, '2023-07-10', '175000', 1),
 ('11062023104735', 0, '2023-06-11', '70000', 1),
-('11072023000416', 0, '2023-07-11', '165000', 1);
+('11072023003809', 0, '2023-07-11', '130000', 1);
 
 -- --------------------------------------------------------
 
@@ -237,10 +232,11 @@ CREATE TABLE `trxbarang` (
 --
 
 INSERT INTO `trxbarang` (`id_trxbrg`, `tgl_trxbrg`, `id_brg`, `id_spl`, `jml_brg`, `ket_trxbrg`) VALUES
-('00032811072023', '2023-07-11', 5, 4, 35, 'Stok nambah 35'),
 ('00365602062019', '2023-06-02', 1, 3, 10, 'Oli'),
-('04184902062019', '2023-06-02', 5, 2, 5, 'suspensi'),
-('04190502062019', '2023-06-02', 1, 3, 5, 'masuk lagi');
+('02062511072023', '2023-07-11', 1, 4, 35, 'Tambah 35 stok'),
+('02064711072023', '2023-07-11', 5, 2, 15, 'Tambah stok 15'),
+('04184902062019', '2019-06-02', 5, 2, 5, 'suspensi'),
+('04190502062019', '2019-06-02', 1, 3, 5, 'masuk lagi');
 
 --
 -- Indexes for dumped tables
@@ -308,7 +304,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `barangjasa`
 --
 ALTER TABLE `barangjasa`
-  MODIFY `id_brg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_brg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `kasir`
@@ -332,7 +328,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `tmp_trx`
 --
 ALTER TABLE `tmp_trx`
-  MODIFY `id_tmp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_tmp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
